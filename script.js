@@ -31,7 +31,30 @@ let gameInterval = setInterval (gameLoop, 100)
 
 
 let moveShip = (e) => {
-    console.log(e.key)
+    switch (e.keyCode) {
+        case (87):
+            ship.y -= 10
+            break  
+        case (68):
+            ship.x += 10
+            break   
+        case (83):
+            ship.y += 10
+            break  
+        case (65):
+            ship.x -= 10  
+    }  
 }
+    // if (e.keyCode === 87) 
+    //    ship.y -= 10
+    
+    // else if (e.keyCode === 68) 
+    //     ship.x += 10
+    
+    // else if (e.keyCode === 83) 
+    //     ship.y += 10
+    
+    // else if (e.keyCode === 65) 
+    //     ship.x -= 10
 
 document.addEventListener("keydown", moveShip)
