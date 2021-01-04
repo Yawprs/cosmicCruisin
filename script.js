@@ -7,13 +7,15 @@ gameBoard.setAttribute("width", getComputedStyle(gameBoard)["width"])
 
 
 //ship
-function Ship(x, y, color, width, height) {
+function Ship(x, y, color, width, height, image) {
     this.x = x
     this.y = y
     this.color = color
     this.width = width
     this.height = height
+    // this.image = image
     this.render = function () {
+        // ctx.drawImage(this.image, this.x, this.y)
         ctx.fillStyle = this.color
         ctx.fillRect (this.x, this.y, this.width, this.height)
     }
@@ -25,6 +27,12 @@ function Asteroid(x, y, color, width, height) {
     this.color = color
     this.width = width
     this.height = height
+    this.detectHit = function () {
+        if ((this.x <= ship.x) && (this.x + this.width <= ship.x + ship.width)) 
+        console.log("crash :(")
+        &&
+        ((this.y <= ship.y) && (this.y + this.height <= ship.y + ship.height))
+    }
     this.render = function () {
         ctx.fillStyle = this.color
         ctx.fillRect (this.x, this.y, this.width, this.height)
@@ -33,58 +41,49 @@ function Asteroid(x, y, color, width, height) {
 //ship
 let ship = new Ship(380, 400, "grey", 60, 65)
 
+// let ship = new Ship(shipImage, 50, 50)
+// let shipImage = ("https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fen%2Ffree-png-yklwg&psig=AOvVaw3sx4X2yOD1bV-LVNmI6DeV&ust=1609882221175000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCJDZkuGcg-4CFQAAAAAdAAAAABAI")
+
 //asteroids
-let asteroid1 = new Asteroid (100, 50, "brown", 100, 100)
-let asteroid2 = new Asteroid (350, 50, "brown", 100, 100)
-let asteroid3 = new Asteroid (600, 50, "brown", 100, 100)
+
+//asteroid array
+const asteroids = []
+let asteroid1 = new Asteroid (100, -100, "brown", 100, 100)
+let asteroid2 = new Asteroid (350, -100, "brown", 100, 100)
+let asteroid3 = new Asteroid (600, -100, "brown", 100, 100)
+asteroids.push(asteroid1)
+asteroids.push(asteroid2)
+asteroids.push(asteroid3)
 
 // gameloop function
 function gameLoop () {
     ctx.clearRect (0, 0, gameBoard.width, gameBoard.height);
     ship.render();
-    asteroid1.render();
-    asteroid2.render();
-    asteroid3.render();
-    ship.detectHit()
-    // collideship);
-    // var collide = detectHit
-    // console.log("hit")
+    asteroids.forEach((element) => {
+        element.y += 20
+        element.render()
+        element.detectHit()
+    }) 
+    console.log("badoodle")
 }
 
-//game loop
-let gameInterval = setInterval (gameLoop, 100,)
 
-// ship movement
-// function moveShip (key) {
-//     switch (key) {
-//         case "w":
-//             ship.y -= 2
-//             console.log(key)
-//             break  
-//         case "d":
-//             ship.x += 10
-//             break   
-//         case "s":
-//             ship.y += 10
-//             break  
-//         case "a":
-//             ship.x -= 10  
-//         }  
-        // collide (ship)
-// }
+
+//game loop
+let gameInterval = setInterval(gameLoop, 100)
 
 
 document.addEventListener("keydown", (e) => {
     switch (e.key) {
-        case "w":
-            ship.y -= 15
-            break  
+        // case "w":
+        //     ship.y -= 15
+        //     break  
         case "d":
             ship.x += 15
             break   
-        case "s":
-            ship.y += 15
-            break  
+        // case "s":
+        //     ship.y += 15
+        //     break  
         case "a":
             ship.x -= 15  
             break
@@ -102,40 +101,32 @@ document.addEventListener("keydown", (e) => {
              ship.x = 0;
         }       
 })
-// document.addEventListener("keydown", (event) => {
-//     event.preventDefault();
-//     moveShip(event.code);
- 
-// })
 
-function collide (ship) {
-    if (ship.y > gameBoard.height - 65) {
-        ship.y = gameBoard.height - 65; 
-     }
-     if (ship.y < 0) {
-         ship.y = 0;
-     }
-     if (ship.x > gameBoard.width - 60) {
-         ship.x = gameBoard.width - 60;
-     }
-     if (ship.x < 0) {
-         ship.x = 0;
-     }
-}
-// function asteroidFall () {
-//     asteroid1.y + 10;
-//     asteroid2.y + 10;
-//     asteroid3.y + 10;
+// function collide (ship) {
+//     if (ship.y > gameBoard.height - 65) {
+//         ship.y = gameBoard.height - 65; 
+//      }
+//      if (ship.y < 0) {
+//          ship.y = 0;
+//      }
+//      if (ship.x > gameBoard.width - 60) {
+//          ship.x = gameBoard.width - 60;
+//      }
+//      if (ship.x < 0) {
+//          ship.x = 0;
+//      }
 // }
 
-function detectHit (ship, asteroid1, asteroid2, asteroid3) {
-    if (
-        ship.x + ship.width >= asteroid1.x &&
-        ship.x <= asteroid1.x + asteroid1.width &&
-        ship.y <= asteroid1.y + asteroid1.height &&
-        ship.y + ship.height >= asteroid1.y
-    ) {
-        console.log("hit")
-        return true
-    }
-}
+// function detectHit (ship, asteroid1) {
+//     if (
+//         ship.x + ship.width >= asteroid1.x &&
+//         ship.x <= asteroid1.x + asteroid1.width &&
+//         ship.y <= asteroid1.y + asteroid1.height &&
+//         ship.y + ship.height >= asteroid1.y
+//     ) {
+//         console.log("hit")
+//         return true
+//     }
+// }
+
+
