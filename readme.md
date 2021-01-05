@@ -18,3 +18,5 @@ levelSpeed increases the speed at which the asteroids fall with each pass they d
 I have a gameLoop running to track the movement of the pieces. It checks for changes, then clears, then re-renders everything on the canvas every 100 milliseconds. 
 
 Lastly, I have a start button, with an eventListener which on click begins the game (via function). The button also acts as a reset button.
+
+One thing I don't fully understand is that the game is meant to win once you reach level 10, however it wins when you reach level 4.
