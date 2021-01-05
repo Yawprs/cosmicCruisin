@@ -28,14 +28,21 @@ function Asteroid(x, y, color, width, height) {
     this.width = width
     this.height = height
     this.detectHit = function () {
-        if ((this.x <= ship.x) && (this.x + this.width <= ship.x + ship.width)) 
-        console.log("crash :(")
-        &&
-        ((this.y <= ship.y) && (this.y + this.height <= ship.y + ship.height))
+        if (ship.x + ship.width >= this.x && 
+            ship.x <= this.x + this.width &&
+            ship.y <= this.y + this.height &&
+            ship.y + ship.height >= this.y) {
+            clearInterval(gameInterval)
+        }
     }
     this.render = function () {
         ctx.fillStyle = this.color
         ctx.fillRect (this.x, this.y, this.width, this.height)
+    }
+    this.resetPosition = function() {
+        if (this.y > gameBoard.height) {
+            this.y = 0 - this.height
+        }
     }
 }
 //ship
@@ -63,10 +70,9 @@ function gameLoop () {
         element.y += 20
         element.render()
         element.detectHit()
+        element.resetPosition()
     }) 
-    console.log("badoodle")
 }
-
 
 
 //game loop
@@ -75,15 +81,15 @@ let gameInterval = setInterval(gameLoop, 100)
 
 document.addEventListener("keydown", (e) => {
     switch (e.key) {
-        // case "w":
-        //     ship.y -= 15
-        //     break  
+        case "w":
+            ship.y -= 15
+            break  
         case "d":
             ship.x += 15
             break   
-        // case "s":
-        //     ship.y += 15
-        //     break  
+        case "s":
+            ship.y += 15
+            break  
         case "a":
             ship.x -= 15  
             break
