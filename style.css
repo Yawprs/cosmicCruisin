@@ -25,3 +25,8 @@ main {
     height: 500px;
     background-image: url(https://imgur.com/dxqCziV.jpg);
 } 
+
+.startButton {
+    margin: 40px;
+    text-align: center;
+}
