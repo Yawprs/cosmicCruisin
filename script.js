@@ -10,6 +10,8 @@ let title = document.getElementById("title")
 
 let levelCounter = 0
 
+// let newAudio = new Audio("https://soundcloud.com/drzlmusic/high-technology/s-khUppVXqh6c")
+
 gameBoard.setAttribute("height", getComputedStyle(gameBoard)["height"])
 gameBoard.setAttribute("width", getComputedStyle(gameBoard)["width"])
 
@@ -105,6 +107,9 @@ function loseGame() {
     console.log("crash")
 }
 
+// function playAudio() {
+//     audio.play()
+// }
 
 let gameInterval
 
@@ -112,6 +117,7 @@ function startGame() {
     title.innerText = "Cosmic Cruisin'"
     baseSpeed = 20
     levelCounter = 0
+    // playAudio()
     makeAsteroids()
     gameInterval = setInterval(gameLoop, 100)
 }
